@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { sampleNews } from '../assets/assets';
+import { sampleNews, assets } from '../assets/assets';
 
 const NewsCard = ({ news }) => {
   const navigate = useNavigate();
@@ -19,7 +19,10 @@ const NewsCard = ({ news }) => {
         alt={news.title}
       />
       <div className="p-6">
-        <p className="text-sm text-gray-500">{news.date}</p>
+        <div className="flex items-center gap-2">
+          <img src={assets.calender} alt="Calendar" className="w-4 h-4" />
+          <p className="text-sm text-gray-500">{news.date}</p>
+        </div>
         <p className="text-lg font-semibold text-gray-900 mt-2">{news.title}</p>
         <p className="text-sm text-gray-600 mt-3">
           {news.description.slice(0, 80)}...

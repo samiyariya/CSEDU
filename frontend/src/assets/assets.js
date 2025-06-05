@@ -7,6 +7,7 @@ import telco from './telco.png';
 import policy from './policy.png';
 import faculty from './faculty.png';
 import security from './security.png';
+import calender from './calendar.png';
 
 export const assets = {
   iftar,
@@ -17,7 +18,8 @@ export const assets = {
   telco,
   policy,
   faculty,
-  security
+  security, 
+  calender
 };
 
 export const sampleNews = [
