@@ -8,6 +8,8 @@ const News = () => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   // Generate years from 2005 to current year
   const currentYear = new Date().getFullYear();
@@ -31,11 +33,31 @@ const News = () => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset to first page when searching
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     // Search is handled in real-time through filteredNews
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    setCurrentPage(1); // Reset to first page when filter changes
+    
+    switch(filterType) {
+      case 'category':
+        setSelectedCategory(value);
+        break;
+      case 'year':
+        setSelectedYear(value);
+        break;
+      case 'month':
+        setSelectedMonth(value);
+        break;
+      case 'sort':
+        setSortOrder(value);
+        break;
+    }
   };
 
   const filteredNews = sampleNews.filter(news => {
@@ -71,9 +93,22 @@ const News = () => {
     }
   });
 
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentNews = filteredNews.slice(startIndex, endIndex);
+
   const clearYearMonthFilters = () => {
     setSelectedYear('');
     setSelectedMonth('');
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    // Scroll to top of news section
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -87,7 +122,7 @@ const News = () => {
           {/* News Type Dropdown */}
           <select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => handleFilterChange('category', e.target.value)}
             className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
           >
             {newsCategories.map((category) => (
@@ -100,7 +135,7 @@ const News = () => {
           {/* Year Dropdown */}
           <select
             value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
+            onChange={(e) => handleFilterChange('year', e.target.value)}
             className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
           >
             <option value="">All Years</option>
@@ -114,7 +149,7 @@ const News = () => {
           {/* Month Dropdown */}
           <select
             value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
+            onChange={(e) => handleFilterChange('month', e.target.value)}
             className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
           >
             <option value="">All Months</option>
@@ -128,7 +163,7 @@ const News = () => {
           {/* Sort Dropdown */}
           <select
             value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
+            onChange={(e) => handleFilterChange('sort', e.target.value)}
             className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
           >
             <option value="oldest">Oldest First</option>
@@ -169,10 +204,17 @@ const News = () => {
         </div>
       </div>
 
+      {/* Results Info */}
+      {filteredNews.length > 0 && (
+        <div className="mb-6 text-md text-gray-500">
+          Showing {startIndex + 1}-{Math.min(endIndex, filteredNews.length)} of {filteredNews.length} results
+        </div>
+      )}
+
       {/* News Grid */}
       <div className="w-full flex flex-wrap gap-8 pt-6 gap-y-14">
-        {filteredNews.length > 0 ? (
-          filteredNews.map((item) => (
+        {currentNews.length > 0 ? (
+          currentNews.map((item) => (
             <NewsCard key={item.id} news={item} />
           ))
         ) : (
@@ -181,6 +223,52 @@ const News = () => {
           </p>
         )}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center mt-12 mb-8 gap-2">
+          {/* Previous Button */}
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-3 py-2 rounded-xl border transition-all duration-200 ${
+              currentPage === 1
+                ? 'bg-gray-100 text-primay border-gray-200 cursor-not-allowed'
+                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-primary hover:border-1 hover:scale-80'
+            }`}
+          >
+            &lt;
+          </button>
+
+          {/* Page Numbers */}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              className={`px-3 py-2 rounded-xl border transition-all duration-200 ${
+                currentPage === pageNumber
+                  ? 'bg-primary text-white border-primary'
+                  : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 hover:border-2 hover:scale-110'
+              }`}
+            >
+              {pageNumber}
+            </button>
+          ))}
+
+          {/* Next Button */}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-2 rounded-xl border transition-all duration-200 ${
+              currentPage === totalPages
+                ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 hover:border-2 hover:scale-110'
+            }`}
+          >
+            &gt;
+          </button>
+        </div>
+      )}
     </div>
   );
 };
