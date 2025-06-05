@@ -5,7 +5,9 @@ import { sampleNews, newsCategories, assets } from '../assets/assets';
 const News = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortOrder, setSortOrder] = useState('newest'); // Add sort state
+  const [sortOrder, setSortOrder] = useState('newest');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -21,7 +23,22 @@ const News = () => {
     const matchesSearch = searchQuery === '' || 
       news.title.toLowerCase().includes(searchQuery.toLowerCase());
     
-    return matchesCategory && matchesSearch;
+    // Date range filtering
+    let matchesDateRange = true;
+    if (dateFrom || dateTo) {
+      const newsDate = new Date(news.date);
+      const fromDate = dateFrom ? new Date(dateFrom) : null;
+      const toDate = dateTo ? new Date(dateTo) : null;
+      
+      if (fromDate && newsDate < fromDate) {
+        matchesDateRange = false;
+      }
+      if (toDate && newsDate > toDate) {
+        matchesDateRange = false;
+      }
+    }
+    
+    return matchesCategory && matchesSearch && matchesDateRange;
   }).sort((a, b) => {
     // Sort by date based on sortOrder
     const dateA = new Date(a.date);
@@ -33,6 +50,11 @@ const News = () => {
       return dateA - dateB; // Oldest first
     }
   });
+
+  const clearDateFilters = () => {
+    setDateFrom('');
+    setDateTo('');
+  };
 
   return (
     <div className="m-14 max-h-[90vh] overflow-y-scroll">
@@ -63,7 +85,7 @@ const News = () => {
           <select
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
-            className="border border-gray-300 text-primary px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
+            className="border border-gray-300 text-gray-800 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
           >
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
@@ -88,6 +110,38 @@ const News = () => {
             </button>
           </form>
         </div>
+      </div>
+
+      {/* Date Range Filter Section */}
+      <div className="flex flex-wrap items-center gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+        <div className="flex items-center gap-2">
+          <label className="text-sm font-medium text-gray-700">From:</label>
+          <input
+            type="date"
+            value={dateFrom}
+            onChange={(e) => setDateFrom(e.target.value)}
+            className="border border-gray-300 text-gray-800 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
+          />
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <label className="text-sm font-medium text-gray-700">To:</label>
+          <input
+            type="date"
+            value={dateTo}
+            onChange={(e) => setDateTo(e.target.value)}
+            className="border border-gray-300 text-gray-800 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
+          />
+        </div>
+
+        {(dateFrom || dateTo) && (
+          <button
+            onClick={clearDateFilters}
+            className="px-3 py-2 text-sm text-red-600 hover:text-red-800 border border-red-300 hover:border-red-400 rounded-lg transition-colors"
+          >
+            Clear Dates
+          </button>
+        )}
       </div>
 
       {/* News Grid */}
