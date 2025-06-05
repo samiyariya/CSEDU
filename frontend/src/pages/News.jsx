@@ -6,8 +6,28 @@ const News = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('newest');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
+
+  // Generate years from 2005 to current year
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: currentYear - 2004 }, (_, i) => 2005 + i).reverse();
+  
+  // Months array
+  const months = [
+    { value: '01', name: 'January' },
+    { value: '02', name: 'February' },
+    { value: '03', name: 'March' },
+    { value: '04', name: 'April' },
+    { value: '05', name: 'May' },
+    { value: '06', name: 'June' },
+    { value: '07', name: 'July' },
+    { value: '08', name: 'August' },
+    { value: '09', name: 'September' },
+    { value: '10', name: 'October' },
+    { value: '11', name: 'November' },
+    { value: '12', name: 'December' }
+  ];
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -23,22 +43,22 @@ const News = () => {
     const matchesSearch = searchQuery === '' || 
       news.title.toLowerCase().includes(searchQuery.toLowerCase());
     
-    // Date range filtering
-    let matchesDateRange = true;
-    if (dateFrom || dateTo) {
+    // Year and Month filtering
+    let matchesYearMonth = true;
+    if (selectedYear || selectedMonth) {
       const newsDate = new Date(news.date);
-      const fromDate = dateFrom ? new Date(dateFrom) : null;
-      const toDate = dateTo ? new Date(dateTo) : null;
+      const newsYear = newsDate.getFullYear().toString();
+      const newsMonth = (newsDate.getMonth() + 1).toString().padStart(2, '0');
       
-      if (fromDate && newsDate < fromDate) {
-        matchesDateRange = false;
+      if (selectedYear && newsYear !== selectedYear) {
+        matchesYearMonth = false;
       }
-      if (toDate && newsDate > toDate) {
-        matchesDateRange = false;
+      if (selectedMonth && newsMonth !== selectedMonth) {
+        matchesYearMonth = false;
       }
     }
     
-    return matchesCategory && matchesSearch && matchesDateRange;
+    return matchesCategory && matchesSearch && matchesYearMonth;
   }).sort((a, b) => {
     // Sort by date based on sortOrder
     const dateA = new Date(a.date);
@@ -51,9 +71,9 @@ const News = () => {
     }
   });
 
-  const clearDateFilters = () => {
-    setDateFrom('');
-    setDateTo('');
+  const clearYearMonthFilters = () => {
+    setSelectedYear('');
+    setSelectedMonth('');
   };
 
   return (
@@ -62,35 +82,72 @@ const News = () => {
       
       {/* Filter and Search Section */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-        {/* Filter Buttons */}
+        {/* Left Side - Category and Year/Month Dropdowns */}
         <div className="flex flex-wrap gap-3">
-          {newsCategories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                selectedCategory === category.id
-                  ? 'bg-primary text-white shadow-md'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
+          {/* News Type Dropdown */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
+          >
+            {newsCategories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
 
-        {/* Search and Sort Section */}
-        <div className="flex items-center gap-4">
+          {/* Year Dropdown */}
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
+          >
+            <option value="">All Years</option>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+
+          {/* Month Dropdown */}
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
+          >
+            <option value="">All Months</option>
+            {months.map((month) => (
+              <option key={month.value} value={month.value}>
+                {month.name}
+              </option>
+            ))}
+          </select>
+
           {/* Sort Dropdown */}
           <select
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
-            className="border border-gray-300 text-gray-800 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
+            className="border border-gray-300 text-gray-800 px-4 py-2 rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-gray-300 bg-white"
           >
-            <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
+            <option value="newest">Newest First</option>
           </select>
 
+          {/* Clear Year/Month Button */}
+          {(selectedYear || selectedMonth) && (
+            <button
+              onClick={clearYearMonthFilters}
+              className="px-3 py-2 text-sm text-red-600 hover:text-red-800 border border-red-300 hover:border-red-400 rounded-xl transition-colors"
+            >
+              Clear Filters
+            </button>
+          )}
+        </div>
+
+        {/* Right Side - Search Section */}
+        <div className="flex items-center gap-4">
           {/* Search Form */}
           <form
             onSubmit={handleSearchSubmit}
@@ -112,38 +169,6 @@ const News = () => {
         </div>
       </div>
 
-      {/* Date Range Filter Section */}
-      <div className="flex flex-wrap items-center gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-gray-700">From:</label>
-          <input
-            type="date"
-            value={dateFrom}
-            onChange={(e) => setDateFrom(e.target.value)}
-            className="border border-gray-300 text-gray-800 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
-          />
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-gray-700">To:</label>
-          <input
-            type="date"
-            value={dateTo}
-            onChange={(e) => setDateTo(e.target.value)}
-            className="border border-gray-300 text-gray-800 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-gray-300"
-          />
-        </div>
-
-        {(dateFrom || dateTo) && (
-          <button
-            onClick={clearDateFilters}
-            className="px-3 py-2 text-sm text-red-600 hover:text-red-800 border border-red-300 hover:border-red-400 rounded-lg transition-colors"
-          >
-            Clear Dates
-          </button>
-        )}
-      </div>
-
       {/* News Grid */}
       <div className="w-full flex flex-wrap gap-8 pt-6 gap-y-14">
         {filteredNews.length > 0 ? (
@@ -152,7 +177,7 @@ const News = () => {
           ))
         ) : (
           <p className="text-gray-500 text-center w-full">
-            {searchQuery ? `No news found for "${searchQuery}"` : 'No news found for this category.'}
+            {searchQuery ? `No news found for "${searchQuery}"` : 'No news found for the selected filters.'}
           </p>
         )}
       </div>
