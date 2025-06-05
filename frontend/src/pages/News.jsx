@@ -2,6 +2,28 @@ import { useState } from 'react';
 import NewsCard from '../components/NewsCard';
 import { sampleNews, newsCategories, assets } from '../assets/assets';
 
+export const isExpired = (expiryDate) => {
+  if (!expiryDate) return false;
+  const today = new Date();
+  const expiry = new Date(expiryDate);
+  return today > expiry;
+};
+
+export const autoArchiveNews = (newsArray) => {
+  return newsArray.map(news => ({
+    ...news,
+    isArchived: isExpired(news.expiryDate)
+  }));
+};
+
+export const getActiveNews = (newsArray) => {
+  return autoArchiveNews(newsArray).filter(news => !news.isArchived);
+};
+
+export const getArchivedNews = (newsArray) => {
+  return autoArchiveNews(newsArray).filter(news => news.isArchived);
+};
+
 const News = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -9,6 +31,7 @@ const News = () => {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showArchived, setShowArchived] = useState(false);
   const itemsPerPage = 6;
 
   // Generate years from 2005 to current year
@@ -30,6 +53,9 @@ const News = () => {
     { value: '11', name: 'November' },
     { value: '12', name: 'December' }
   ];
+
+  // Get archived news count
+  const archivedNewsCount = getArchivedNews(sampleNews).length;
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -60,7 +86,10 @@ const News = () => {
     }
   };
 
-  const filteredNews = sampleNews.filter(news => {
+  // Use active or archived news based on showArchived state
+  const newsToShow = showArchived ? getArchivedNews(sampleNews) : getActiveNews(sampleNews);
+
+  const filteredNews = newsToShow.filter(news => {
     const matchesCategory = selectedCategory === 'all' || news.category === selectedCategory;
     const matchesSearch = searchQuery === '' || 
       news.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -111,9 +140,37 @@ const News = () => {
     window.scrollTo(0, 0);
   };
 
+  const toggleArchived = () => {
+    setShowArchived(!showArchived);
+    setCurrentPage(1);
+    // Reset filters when switching between active and archived
+    setSelectedCategory('all');
+    setSelectedYear('');
+    setSelectedMonth('');
+    setSearchQuery('');
+  };
+
   return (
     <div className="m-14 max-h-[90vh] overflow-y-scroll">
-      <h1 className="text-xl font-semibold mb-6 text-primary">Notice Board</h1>
+      {/* Header with Notice Board title and View Archived button */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-xl font-semibold text-primary">
+          {showArchived ? 'Archived News' : 'Notice Board'}
+        </h1>
+        <button
+          onClick={toggleArchived}
+          className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-blue-50 hover:text-primary border border-gray-300 rounded-xl transition-all duration-200 font-medium"
+        >
+          <svg 
+            className="w-5 h-5" 
+            fill="currentColor" 
+            viewBox="0 0 20 20"
+          >
+            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+          </svg>
+          {showArchived ? `View Active News` : `View Archived (${archivedNewsCount})`}
+        </button>
+      </div>
       
       {/* Filter and Search Section */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
