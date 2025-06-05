@@ -4,6 +4,9 @@ import research from './research.png';
 import award from './award.png';
 import career from './career.png';
 import telco from './telco.png';
+import policy from './policy.png';
+import faculty from './faculty.png';
+import security from './security.png';
 
 export const assets = {
   iftar,
@@ -12,6 +15,9 @@ export const assets = {
   award,
   career,
   telco,
+  policy,
+  faculty,
+  security
 };
 
 export const sampleNews = [
@@ -80,11 +86,45 @@ export const sampleNews = [
     author: 'Industry Relations Office',
     location: 'CSEDU Conference Hall',
     time: '2:00 PM - 6:00 PM'
+  },
+  {
+    id: 7,
+    title: 'New Academic Policy Updates 2025',
+    description: 'Important updates to academic policies including grading system changes and course registration procedures effective from Spring 2025.',
+    image: policy, // You can use a different image or add a new one for administrative content
+    category: 'administrative',
+    date: 'Jan 10, 2025',
+    author: 'Academic Affairs Office',
+    location: 'CSEDU Administration',
+    time: 'Effective Immediately'
+  },
+  {
+    id: 8,
+    title: 'Faculty Appointment Announcement',
+    description: 'We are pleased to announce the appointment of new faculty members to the Computer Science and Engineering Department.',
+    image: faculty,
+    category: 'administrative',
+    date: 'Feb 01, 2025',
+    author: 'Human Resources',
+    location: 'CSEDU Administration',
+    time: 'Effective March 2025'
+  },
+  {
+    id: 9,
+    title: 'Campus Security and Compliance Update',
+    description: 'New security protocols and compliance requirements for all students and staff. Please review the updated guidelines.',
+    image: security,
+    category: 'administrative',
+    date: 'Mar 15, 2025',
+    author: 'Security Office',
+    location: 'Campus-wide',
+    time: 'Immediate Implementation'
   }
 ];
 
 export const newsCategories = [
-  { id: 'all', name: 'All News' },
+  { id: 'all', name: 'All' },
   { id: 'academic', name: 'Academic' },
-  { id: 'general', name: 'General' }
+  { id: 'general', name: 'General' },
+  { id: 'administrative', name: 'Administrative' }
 ];
