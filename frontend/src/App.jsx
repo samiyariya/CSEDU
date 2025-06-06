@@ -6,6 +6,7 @@ const App = () => {
   return (
     <Routes>
       <Route path='/news' element={<News/>} />
+      <Route path='/news/archived' element={<News/>} />
     </Routes>
 
   )

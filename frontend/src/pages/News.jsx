@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import NewsCard from '../components/NewsCard';
 import { sampleNews, newsCategories, assets } from '../assets/assets';
 
@@ -25,14 +26,24 @@ export const getArchivedNews = (newsArray) => {
 };
 
 const News = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Determine if we're on archived page based on URL
+  const showArchived = location.pathname === '/news/archived';
+  
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('newest');
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [showArchived, setShowArchived] = useState(false);
   const itemsPerPage = 6;
+
+  // Reset page when switching between active and archived
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [showArchived]);
 
   // Generate years from 2005 to current year
   const currentYear = new Date().getFullYear();
@@ -141,13 +152,18 @@ const News = () => {
   };
 
   const toggleArchived = () => {
-    setShowArchived(!showArchived);
-    setCurrentPage(1);
     // Reset filters when switching between active and archived
     setSelectedCategory('all');
     setSelectedYear('');
     setSelectedMonth('');
     setSearchQuery('');
+    
+    // Navigate to appropriate route
+    if (showArchived) {
+      navigate('/news');
+    } else {
+      navigate('/news/archived');
+    }
   };
 
   return (
@@ -203,7 +219,6 @@ const News = () => {
           </button>
         )}
       </div>
-
 
       {/* Archive Notice - Only show when viewing archived notices */}
       {showArchived && (
