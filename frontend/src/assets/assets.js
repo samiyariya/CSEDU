@@ -178,6 +178,214 @@ export const sampleNews = [
     location: 'CSEDU Alumni Hall',
     time: '5:00 PM - 8:00 PM',
     isArchived: false
+  },
+  {
+    id: 13,
+    title: 'Machine Learning Workshop Series',
+    description: 'Join our comprehensive machine learning workshop series covering fundamentals to advanced topics. Perfect for students and professionals.',
+    image: research,
+    category: 'academic',
+    date: 'June 15, 2025',
+    expiryDate: 'September 15, 2025',
+    author: 'AI Research Lab',
+    location: 'CSEDU Lab Complex',
+    time: 'Every Saturday 2:00 PM - 5:00 PM',
+    isArchived: false
+  },
+  {
+    id: 14,
+    title: 'Cybersecurity Awareness Campaign',
+    description: 'Learn about the latest cybersecurity threats and how to protect yourself and your data. Mandatory for all students and staff.',
+    image: security,
+    category: 'administrative',
+    date: 'May 20, 2025',
+    expiryDate: 'July 20, 2025',
+    author: 'IT Security Office',
+    location: 'Campus-wide',
+    time: 'Online Training Available',
+    isArchived: false
+  },
+  {
+    id: 15,
+    title: 'Tech Startup Incubation Program',
+    description: 'Transform your innovative ideas into successful startups with our incubation program. Mentorship and funding opportunities available.',
+    image: career,
+    category: 'general',
+    date: 'April 25, 2025',
+    expiryDate: 'November 30, 2025',
+    author: 'Innovation Hub',
+    location: 'CSEDU Innovation Center',
+    time: 'Application Deadline: July 1, 2025',
+    isArchived: false
+  },
+  {
+    id: 16,
+    title: 'Database Management System Course',
+    description: 'Intensive course on database design, implementation, and management. Hands-on experience with popular database systems.',
+    image: research,
+    category: 'academic',
+    date: 'March 1, 2024',
+    expiryDate: 'May 31, 2024', // Expired
+    author: 'Database Lab',
+    location: 'CSEDU Lab 301',
+    time: 'Mon/Wed/Fri 10:00 AM - 12:00 PM',
+    isArchived: false
+  },
+  {
+    id: 17,
+    title: 'Annual Sports Day 2025',
+    description: 'Join the annual sports day featuring various competitions including cricket, football, badminton, and table tennis.',
+    image: food_fest,
+    category: 'general',
+    date: 'February 14, 2025',
+    expiryDate: 'February 15, 2025', // Past event
+    author: 'Sports Committee',
+    location: 'CSEDU Sports Complex',
+    time: '8:00 AM - 6:00 PM',
+    isArchived: false
+  },
+  {
+    id: 18,
+    title: 'Final Examination Schedule Spring 2025',
+    description: 'Final examination schedule for Spring 2025 semester. Please check your exam dates and venues carefully.',
+    image: policy,
+    category: 'administrative',
+    date: 'May 15, 2025',
+    expiryDate: 'June 15, 2025',
+    author: 'Examination Committee',
+    location: 'Various Examination Halls',
+    time: 'Check Individual Schedule',
+    isArchived: false
+  },
+  {
+    id: 19,
+    title: 'Industry-Academia Collaboration Forum',
+    description: 'Bridging the gap between industry and academia. Leading companies will share insights on future technology trends.',
+    image: telco,
+    category: 'academic',
+    date: 'July 5, 2025',
+    expiryDate: 'December 31, 2025',
+    author: 'Industry Relations',
+    location: 'CSEDU Main Auditorium',
+    time: '9:00 AM - 4:00 PM',
+    isArchived: false
+  },
+  {
+    id: 20,
+    title: 'Programming Contest Training Camp',
+    description: 'Intensive training camp for competitive programming. Prepare for ACM ICPC and other prestigious programming contests.',
+    image: award,
+    category: 'academic',
+    date: 'August 1, 2025',
+    expiryDate: 'October 15, 2025',
+    author: 'Programming Club',
+    location: 'CSEDU Programming Lab',
+    time: 'Daily 4:00 PM - 8:00 PM',
+    isArchived: false
+  },
+  {
+    id: 21,
+    title: 'Faculty Development Program',
+    description: 'Professional development program for faculty members focusing on modern teaching methodologies and research techniques.',
+    image: faculty,
+    category: 'administrative',
+    date: 'January 5, 2022',
+    expiryDate: 'March 31, 2022', // Very old - archived
+    author: 'Faculty Development Office',
+    location: 'CSEDU Conference Room',
+    time: 'Weekly Sessions',
+    isArchived: false
+  },
+  {
+    id: 22,
+    title: 'Student Mental Health Awareness Week',
+    description: 'A week-long program focusing on mental health awareness, stress management, and well-being for students.',
+    image: iftar,
+    category: 'general',
+    date: 'September 10, 2025',
+    expiryDate: 'November 30, 2025',
+    author: 'Student Counseling Center',
+    location: 'CSEDU Campus',
+    time: 'Various Activities Throughout the Week',
+    isArchived: false
+  },
+  {
+    id: 23,
+    title: 'Research Paper Publication Guidelines',
+    description: 'Updated guidelines for research paper publication in international journals and conferences. Mandatory for all graduate students.',
+    image: research,
+    category: 'academic',
+    date: 'December 1, 2022',
+    expiryDate: 'June 30, 2023', // Expired
+    author: 'Graduate Studies Office',
+    location: 'CSEDU Administration',
+    time: 'Effective Immediately',
+    isArchived: false
+  },
+  {
+    id: 24,
+    title: 'Library Extended Hours During Exams',
+    description: 'The library will extend its operating hours during the examination period to support students in their studies.',
+    image: policy,
+    category: 'administrative',
+    date: 'November 20, 2024',
+    expiryDate: 'January 15, 2025', // Expired
+    author: 'Library Administration',
+    location: 'CSEDU Central Library',
+    time: '6:00 AM - 12:00 AM',
+    isArchived: false
+  },
+  {
+    id: 25,
+    title: 'International Conference on AI and Data Science',
+    description: 'Premier international conference bringing together researchers, practitioners, and students in artificial intelligence and data science.',
+    image: research,
+    category: 'academic',
+    date: 'October 15, 2025',
+    expiryDate: 'December 31, 2025',
+    author: 'Conference Committee',
+    location: 'CSEDU Main Campus',
+    time: 'October 15-17, 2025',
+    isArchived: false
+  },
+  {
+    id: 26,
+    title: 'Campus Wi-Fi Upgrade Notice',
+    description: 'Campus-wide Wi-Fi infrastructure upgrade scheduled. Temporary service interruptions may occur during the upgrade period.',
+    image: security,
+    category: 'administrative',
+    date: 'March 25, 2023',
+    expiryDate: 'April 30, 2023', // Expired
+    author: 'IT Services',
+    location: 'Campus-wide',
+    time: 'Upgrade Period: April 1-15, 2023',
+    isArchived: false
+  },
+  {
+    id: 27,
+    title: 'Scholarship Application Deadline Extended',
+    description: 'The deadline for merit-based scholarship applications has been extended. Don\'t miss this opportunity for financial assistance.',
+    image: award,
+    category: 'administrative',
+    date: 'July 20, 2025',
+    expiryDate: 'August 31, 2025',
+    author: 'Financial Aid Office',
+    location: 'CSEDU Administration',
+    time: 'New Deadline: August 15, 2025',
+    isArchived: false
+  },
+  {
+    id: 28,
+    title: 'Green Campus Initiative Launch',
+    description: 'Join our green campus initiative to make CSEDU more environmentally sustainable. Various eco-friendly programs and activities.',
+    image: iftar,
+    category: 'general',
+    date: 'Earth Day 2025',
+    expiryDate: 'December 31, 2025',
+    author: 'Environmental Committee',
+    location: 'CSEDU Campus',
+    time: 'Ongoing Initiative',
+    isArchived: false
   }
 ];
 
