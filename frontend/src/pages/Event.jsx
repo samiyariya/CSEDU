@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Filter, Calendar, SortAsc, ChevronLeft, ChevronRight, X, Grid, List } from 'lucide-react';
 import EventCard from '../components/EventCard';
 import { sampleEvents, eventCategories } from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const Event = () => {
   const [events, setEvents] = useState([]);
@@ -14,6 +15,7 @@ const Event = () => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   
   const eventsPerPage = 9;
+  const navigate = useNavigate();
 
   // Load events data
   useEffect(() => {
@@ -90,8 +92,7 @@ const Event = () => {
   };
 
   const handleViewDetails = (event) => {
-    // TODO: Implement view details logic (modal or navigation)
-    alert(`View details for "${event.title}" - Feature to be implemented`);
+    navigate(`/events/${event.id}`);
   };
 
   const handlePageChange = (page) => {
