@@ -268,18 +268,39 @@ const Event = () => {
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <span>Active filters:</span>
                 {searchTerm && (
-                  <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
+                  <span className="flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
                     Search: "{searchTerm}"
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="ml-1 hover:bg-blue-200 rounded-full p-0.5 transition-colors"
+                      title="Clear search filter"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
                   </span>
                 )}
                 {selectedCategory !== 'all' && (
-                  <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">
+                  <span className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">
                     Category: {eventCategories.find(c => c.id === selectedCategory)?.name}
+                    <button
+                      onClick={() => setSelectedCategory('all')}
+                      className="ml-1 hover:bg-green-200 rounded-full p-0.5 transition-colors"
+                      title="Clear category filter"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
                   </span>
                 )}
                 {sortBy !== 'date' && (
-                  <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs">
+                  <span className="flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs">
                     Sort: {sortBy}
+                    <button
+                      onClick={() => setSortBy('date')}
+                      className="ml-1 hover:bg-purple-200 rounded-full p-0.5 transition-colors"
+                      title="Reset sort to date"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
                   </span>
                 )}
               </div>
@@ -287,7 +308,7 @@ const Event = () => {
                 onClick={clearFilters}
                 className="text-sm text-blue-600 hover:text-blue-700 font-medium"
               >
-                Clear all filters
+                Clear all
               </button>
             </div>
           )}
