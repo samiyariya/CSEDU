@@ -4,6 +4,21 @@ import EventCard from '../components/EventCard';
 import { sampleEvents, eventCategories } from '../assets/assets';
 import { useNavigate } from 'react-router-dom';
 
+// Simple Badge component (you can also import from a UI library if available)
+const Badge = ({ variant = "primary", className = "", children }) => {
+  const baseClasses = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium";
+  const variantClasses = {
+    primary: "bg-blue-100 text-blue-800",
+    secondary: "bg-gray-100 text-gray-800"
+  };
+  
+  return (
+    <span className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
+      {children}
+    </span>
+  );
+};
+
 const Event = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,6 +96,11 @@ const Event = () => {
     return filtered;
   }, [events, searchTerm, selectedCategory, sortBy]);
 
+  // Add this computed value for the next upcoming event
+  const nextUpcomingEvent = useMemo(() => {
+    return filteredAndSortedEvents.length > 0 ? filteredAndSortedEvents[0] : null;
+  }, [filteredAndSortedEvents]);
+
   // Pagination
   const totalPages = Math.ceil(filteredAndSortedEvents.length / eventsPerPage);
   const startIndex = (currentPage - 1) * eventsPerPage;
@@ -141,10 +161,25 @@ const Event = () => {
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               Upcoming Events
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
               Discover and join exciting events in our computer science community. 
               From workshops to hackathons, find opportunities to learn and grow.
             </p>
+            
+            {/* Event Stats Badges */}
+            <div className="flex items-center justify-center gap-6 mt-8">
+              <Badge variant="secondary" className="text-base font-semibold px-4 py-2 shadow-sm">
+                <Calendar className="w-5 h-5 mr-2" />
+                {filteredAndSortedEvents.length} {filteredAndSortedEvents.length === 1 ? 'Event' : 'Events'}
+              </Badge>
+              <Badge variant="secondary" className="text-base font-semibold px-4 py-2 shadow-sm">
+                Next Event: {nextUpcomingEvent?.date ? new Date(nextUpcomingEvent.date).toLocaleDateString('en-US', { 
+                  month: 'short', 
+                  day: 'numeric',
+                  year: 'numeric'
+                }) : "TBD"}
+              </Badge>
+            </div>
           </div>
         </div>
       </div>
