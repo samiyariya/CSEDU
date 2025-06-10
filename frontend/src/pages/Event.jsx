@@ -278,7 +278,7 @@ const Event = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm min-w-48"
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-transparent focus:outline-none transition-colors text-sm min-w-48"
               >
                 {eventCategories.map(category => (
                   <option key={category.id} value={category.id}>
@@ -291,7 +291,7 @@ const Event = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm min-w-44"
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-transparent focus:outline-none transition-colors text-sm min-w-44"
               >
                 <option value="date">Sort by Date</option>
                 <option value="title">Sort by Title</option>
