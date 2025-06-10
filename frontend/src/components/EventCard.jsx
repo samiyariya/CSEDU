@@ -73,7 +73,7 @@ const EventCard = ({ event, onRegister, onViewDetails }) => {
             {event.tags.slice(0, 3).map((tag, index) => (
               <span
                 key={index}
-                className="inline-flex items-center px-2.5 py-0.5 bg-blue-50 text-blue-700 text-xs font-medium rounded-full"
+                className="inline-flex items-center px-2.5 py-0.5 bg-blue-50 text-blue-600 text-xs font-medium rounded-full"
               >
                 <Tag className="w-3 h-3 mr-1" />
                 {tag}
@@ -88,7 +88,7 @@ const EventCard = ({ event, onRegister, onViewDetails }) => {
         )}
 
         {/* Event Title */}
-        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-xl font-bold text-primary mb-3 line-clamp-2 group-hover:text-secondary transition-colors">
           {event.title}
         </h3>
 
@@ -158,7 +158,7 @@ const EventCard = ({ event, onRegister, onViewDetails }) => {
           <div className="flex gap-3">
             <button
               onClick={() => onViewDetails(event)}
-              className="flex-1 px-4 py-2.5 border-2 border-secondary text-gray-700 rounded-lg hover:bg-gray-50 hover:border-yellow transition-all duration-200 text-sm font-medium"
+              className="flex-1 px-4 py-2.5 border-2 border-secondary text-gray-700 rounded-lg hover:bg-gray-50 hover:border-primary transition-all duration-200 text-sm font-medium"
             >
               View Details
             </button>

@@ -8,7 +8,8 @@ export default {
     extend: {
       colors: {
         'primary': '#002147',
-        'secondary': '#ffb606'
+        'secondary': '#ffb606', 
+        't_yellow': '#E6A400'
       },
       gridTemplateColumns: {
         // grid will automatically create as many columns as will fit (homepage doctor list)
