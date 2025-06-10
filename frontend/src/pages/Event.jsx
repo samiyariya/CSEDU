@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Filter, Calendar, SortAsc, ChevronLeft, ChevronRight, X, Grid, List } from 'lucide-react';
 import EventCard from '../components/EventCard';
+import RegistrationForm from '../components/RegistrationForm';
+import RegistrationSuccessModal from '../components/RegistrationSuccessModal';
 import { sampleEvents, eventCategories } from '../assets/assets';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // Simple Badge component (you can also import from a UI library if available)
 const Badge = ({ variant = "primary", className = "", children }) => {
@@ -28,6 +31,12 @@ const Event = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  
+  // Registration form states
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [registrationDetails, setRegistrationDetails] = useState(null);
   
   const eventsPerPage = 9;
   const navigate = useNavigate();
@@ -105,10 +114,56 @@ const Event = () => {
   const totalPages = Math.ceil(filteredAndSortedEvents.length / eventsPerPage);
   const startIndex = (currentPage - 1) * eventsPerPage;
   const paginatedEvents = filteredAndSortedEvents.slice(startIndex, startIndex + eventsPerPage);
-
   const handleRegister = (event) => {
-    // TODO: Implement registration logic
-    alert(`Registration for "${event.title}" - Feature to be implemented`);
+    // Check if registration is open
+    const now = new Date();
+    const eventDate = new Date(event.date);
+    const registrationDeadline = event.registrationDeadline ? new Date(event.registrationDeadline) : eventDate;
+    
+    if (now > eventDate) {
+      toast.error('This event has already passed');
+      return;
+    }
+    
+    if (now > registrationDeadline) {
+      toast.error('Registration deadline has passed');
+      return;
+    }
+    
+    if (event.maxAttendees && event.currentAttendees >= event.maxAttendees) {
+      toast.error('This event is full');
+      return;
+    }
+    
+    // Open registration form
+    setSelectedEvent(event);
+    setShowRegistrationForm(true);
+  };
+
+  const handleRegistrationSuccess = (details) => {
+    setRegistrationDetails(details);
+    setShowRegistrationForm(false);
+    setShowSuccessModal(true);
+    
+    // Update the event's current attendees count
+    setEvents(prevEvents => 
+      prevEvents.map(event => 
+        event.id === selectedEvent.id 
+          ? { ...event, currentAttendees: (event.currentAttendees || 0) + 1 }
+          : event
+      )
+    );
+  };
+
+  const handleCloseRegistrationForm = () => {
+    setShowRegistrationForm(false);
+    setSelectedEvent(null);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setRegistrationDetails(null);
+    setSelectedEvent(null);
   };
 
   const handleViewDetails = (event) => {
@@ -191,13 +246,13 @@ const Event = () => {
             {/* Search */}
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search events by title, description, location, or tags..."
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+                <input
+                  type="text"
+                  placeholder="Search events by title, description, location, or tags..."
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-300 focus:border-transparent focus:outline-none text-sm"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
@@ -403,9 +458,30 @@ const Event = () => {
               Next
               <ChevronRight className="w-4 h-4" />
             </button>
-          </div>
-        )}
+          </div>        )}
       </div>
+
+      {/* Registration Form Modal */}
+      <RegistrationForm
+        event={selectedEvent}
+        isOpen={showRegistrationForm}
+        onClose={handleCloseRegistrationForm}
+        onRegistrationSuccess={handleRegistrationSuccess}
+      />
+
+      {/* Registration Success Modal */}
+      <RegistrationSuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleCloseSuccessModal}
+        registrationDetails={registrationDetails}
+        event={selectedEvent}
+        onDownloadTicket={(details) => {
+          console.log('Downloading ticket:', details);
+        }}
+        onShareEvent={(event, details) => {
+          console.log('Sharing event:', event, details);
+        }}
+      />
     </div>
   );
 };

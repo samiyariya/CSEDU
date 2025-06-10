@@ -154,6 +154,25 @@ const EventCard = ({ event, onRegister, onViewDetails }) => {
 
         {/* Registration Status & Action Buttons */}
         <div className="space-y-3">
+          {/* Action Buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={() => onViewDetails(event)}
+              className="flex-1 px-4 py-2.5 border-2 border-yellow text-gray-700 rounded-lg hover:bg-gray-50 hover:border-yellow transition-all duration-200 text-sm font-medium"
+            >
+              View Details
+            </button>
+            
+            {status === 'open' && (
+              <button
+                onClick={() => onRegister(event)}
+                className="flex-1 px-4 py-2.5 bg-yellow text-white rounded-lg hover:bg-primary transform hover:scale-105 transition-all duration-200 text-sm font-medium shadow-md"
+              >
+                Register Now
+              </button>
+            )}
+          </div>
+
           {/* Registration Status Indicator */}
           {status !== 'open' && (
             <div className="text-center">
@@ -179,25 +198,6 @@ const EventCard = ({ event, onRegister, onViewDetails }) => {
               )}
             </div>
           )}
-
-          {/* Action Buttons */}
-          <div className="flex gap-3">
-            <button
-              onClick={() => onViewDetails(event)}
-              className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 text-sm font-medium"
-            >
-              View Details
-            </button>
-            
-            {status === 'open' && (
-              <button
-                onClick={() => onRegister(event)}
-                className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 text-sm font-medium shadow-md"
-              >
-                Register Now
-              </button>
-            )}
-          </div>
 
           {/* Registration Deadline */}
           {status === 'open' && (

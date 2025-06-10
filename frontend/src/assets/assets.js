@@ -417,8 +417,7 @@ export const sampleNews = [
   }
 ];
 
-export const sampleEvents = [
-  {
+export const sampleEvents = [  {
     id: 1,
     title: "React Workshop 2025",
     date: "2025-06-15",
@@ -436,9 +435,11 @@ export const sampleEvents = [
     category: "workshop",
     organizer: "CSEDU Programming Club",
     registrationDeadline: "2025-06-10",
-    contactEmail: "programming@csedu.edu.bd"
-  },
-  {
+    contactEmail: "programming@csedu.edu.bd",
+    requiresTshirt: true,
+    requiresEmergencyContact: false,
+    includesMeals: true
+  },  {
     id: 2,
     title: "AI/ML Hackathon 2025",
     date: "2025-06-22",
@@ -456,7 +457,10 @@ export const sampleEvents = [
     category: "hackathon",
     organizer: "AI Research Lab",
     registrationDeadline: "2025-06-18",
-    contactEmail: "ailab@csedu.edu.bd"
+    contactEmail: "ailab@csedu.edu.bd",
+    requiresTshirt: true,
+    requiresEmergencyContact: true,
+    includesMeals: true
   },
   {
     id: 3,

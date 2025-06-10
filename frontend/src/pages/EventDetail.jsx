@@ -20,6 +20,9 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { sampleEvents } from '../assets/assets';
+import RegistrationForm from '../components/RegistrationForm';
+import RegistrationSuccessModal from '../components/RegistrationSuccessModal';
+import { toast } from 'react-toastify';
 
 const EventDetail = () => {
   const { id } = useParams();
@@ -28,7 +31,11 @@ const EventDetail = () => {
   const [loading, setLoading] = useState(true);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
-  const [registrationLoading, setRegistrationLoading] = useState(false);
+  
+  // Registration form states
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [registrationDetails, setRegistrationDetails] = useState(null);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -87,15 +94,51 @@ const EventDetail = () => {
     if (!event || !event.maxAttendees) return 0;
     return (event.currentAttendees / event.maxAttendees) * 100;
   };
+  const handleRegister = () => {
+    // Check if registration is open
+    const now = new Date();
+    const eventDate = new Date(event.date);
+    const registrationDeadline = event.registrationDeadline ? new Date(event.registrationDeadline) : eventDate;
+    
+    if (now > eventDate) {
+      toast.error('This event has already passed');
+      return;
+    }
+    
+    if (now > registrationDeadline) {
+      toast.error('Registration deadline has passed');
+      return;
+    }
+    
+    if (event.maxAttendees && event.currentAttendees >= event.maxAttendees) {
+      toast.error('This event is full');
+      return;
+    }
+    
+    // Open registration form
+    setShowRegistrationForm(true);
+  };
 
-  const handleRegister = async () => {
-    setRegistrationLoading(true);
-    // Simulate registration API call
-    setTimeout(() => {
-      setIsRegistered(!isRegistered);
-      setRegistrationLoading(false);
-      // Show success message or handle registration logic
-    }, 1500);
+  const handleRegistrationSuccess = (details) => {
+    setRegistrationDetails(details);
+    setShowRegistrationForm(false);
+    setShowSuccessModal(true);
+    setIsRegistered(true);
+    
+    // Update the event's current attendees count
+    setEvent(prevEvent => ({
+      ...prevEvent,
+      currentAttendees: (prevEvent.currentAttendees || 0) + 1
+    }));
+  };
+
+  const handleCloseRegistrationForm = () => {
+    setShowRegistrationForm(false);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    setRegistrationDetails(null);
   };
 
   const handleShare = () => {
@@ -381,27 +424,16 @@ const EventDetail = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              {status === 'open' && (
+            <div className="flex flex-col sm:flex-row gap-4">              {status === 'open' && (
                 <button
                   onClick={handleRegister}
-                  disabled={registrationLoading}
                   className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
                     isRegistered
                       ? 'bg-green-600 text-white hover:bg-green-700'
                       : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105'
-                  } ${registrationLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  }`}
                 >
-                  {registrationLoading ? (
-                    <div className="flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                      Processing...
-                    </div>
-                  ) : isRegistered ? (
-                    'Registered ✓'
-                  ) : (
-                    'Register Now'
-                  )}
+                  {isRegistered ? 'Registered ✓' : 'Register Now'}
                 </button>
               )}
 
@@ -423,10 +455,29 @@ const EventDetail = () => {
                   Event Website
                 </a>
               )}
-            </div>
-          </div>
+            </div>          </div>
         </div>
       </div>
+
+      {/* Registration Form Modal */}
+      {showRegistrationForm && (
+        <RegistrationForm
+          event={event}
+          isOpen={showRegistrationForm}
+          onClose={handleCloseRegistrationForm}
+          onRegistrationSuccess={handleRegistrationSuccess}
+        />
+      )}
+
+      {/* Registration Success Modal */}
+      {showSuccessModal && (
+        <RegistrationSuccessModal
+          isOpen={showSuccessModal}
+          onClose={handleCloseSuccessModal}
+          registrationDetails={registrationDetails}
+          event={event}
+        />
+      )}
     </div>
   );
 };
