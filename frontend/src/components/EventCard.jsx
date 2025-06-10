@@ -158,7 +158,7 @@ const EventCard = ({ event, onRegister, onViewDetails }) => {
           <div className="flex gap-3">
             <button
               onClick={() => onViewDetails(event)}
-              className="flex-1 px-4 py-2.5 border-2 border-yellow text-gray-700 rounded-lg hover:bg-gray-50 hover:border-yellow transition-all duration-200 text-sm font-medium"
+              className="flex-1 px-4 py-2.5 border-2 border-secondary text-gray-700 rounded-lg hover:bg-gray-50 hover:border-yellow transition-all duration-200 text-sm font-medium"
             >
               View Details
             </button>
@@ -166,7 +166,7 @@ const EventCard = ({ event, onRegister, onViewDetails }) => {
             {status === 'open' && (
               <button
                 onClick={() => onRegister(event)}
-                className="flex-1 px-4 py-2.5 bg-yellow text-white rounded-lg hover:bg-primary transform hover:scale-105 transition-all duration-200 text-sm font-medium shadow-md"
+                className="flex-1 px-4 py-2.5 bg-secondary text-white rounded-lg hover:bg-primary transform hover:scale-105 transition-all duration-200 text-sm font-medium shadow-md"
               >
                 Register Now
               </button>
