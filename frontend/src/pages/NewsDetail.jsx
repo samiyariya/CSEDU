@@ -240,58 +240,85 @@ const NewsDetail = () => {
         {/* Latest News Section */}
         <div className="mt-16">
           <h2 className="text-3xl font-extrabold text-gray-900 mb-10 text-center">Latest News</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {getLatestNews(id).map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 cursor-pointer"
-                onClick={() => {
-                  navigate(`/news/${item.id}`)
-                  window.scrollTo(0, 0)
-                }}
-              >
-                {item.image && (
-                  <div className="h-52 relative overflow-hidden">
-                    <img
-                      src={item.image || "/placeholder.svg"}
-                      alt={item.title}
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span
-                        className={`px-3 py-1 text-xs font-semibold rounded-full shadow-sm capitalize ${getCategoryColor(item.category)}`}
-                      >
-                        {item.category}
-                      </span>
-                    </div>
-                    {isExpired(item.expiryDate) && (
-                      <div className="absolute top-3 right-3">
-                        <span className="px-3 py-1 bg-gray-700 text-white text-xs font-semibold rounded-full shadow-sm">
-                          Archived
-                        </span>
+          
+          {/* Single White Frame for All Latest News */}
+          <div className="bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden max-w-4xl mx-auto">
+            {getLatestNews(id).map((item, index) => (
+              <div key={item.id}>
+                {/* News Row */}
+                <div
+                  className="flex items-center p-6 hover:bg-gray-50 transition-colors cursor-pointer"
+                  onClick={() => {
+                    navigate(`/news/${item.id}`)
+                    window.scrollTo(0, 0)
+                  }}
+                >
+                  {/* Small Image */}
+                  <div className="flex-shrink-0 mr-4">
+                    {item.image ? (
+                      <div className="w-16 h-16 rounded-lg overflow-hidden relative">
+                        <img
+                          src={item.image || "/placeholder.svg"}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                        {/* Category badge on image */}
+                        <div className="absolute top-1 left-1">
+                          <span
+                            className={`px-1.5 py-0.5 text-xs font-semibold rounded capitalize ${getCategoryColor(item.category)}`}
+                          >
+                            {item.category.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        {/* Archived badge */}
+                        {isExpired(item.expiryDate) && (
+                          <div className="absolute top-1 right-1">
+                            <span className="px-1.5 py-0.5 bg-gray-700 text-white text-xs font-semibold rounded">
+                              A
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span className="text-gray-400 text-xs">No Image</span>
                       </div>
                     )}
                   </div>
-                )}
-                <div className="p-5">
-                  <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2">{item.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
-                  <div className="flex justify-between items-center text-sm text-gray-500">
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      <span>{item.date}</span>
-                    </div>
-                    <div className="text-blue-600 hover:underline flex items-center font-medium">
-                      Read more
-                      <ChevronRight className="w-4 h-4 ml-1" />
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 pr-4">
+                        <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2 leading-tight">
+                          {item.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
+                          {item.description}
+                        </p>
+                        <div className="flex items-center text-sm text-gray-500">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          <span>{item.date}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Read more arrow */}
+                      <div className="flex-shrink-0">
+                        <ChevronRight className="w-5 h-5 text-gray-400" />
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Horizontal line separator (not for the last item) */}
+                {index < getLatestNews(id).length - 1 && (
+                  <div className="border-t border-gray-200"></div>
+                )}
               </div>
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-8 text-center">
             <button
               onClick={() => navigate("/news")}
               className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-300 font-semibold inline-flex items-center shadow-md"
