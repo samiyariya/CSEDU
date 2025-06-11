@@ -12,7 +12,7 @@ import {
   Printer,
   ChevronRight,
 } from "lucide-react"
-import { sampleNews } from "../assets/assets"
+import { sampleNews, assets } from "../assets/assets"
 import { isExpired } from "./News"
 
 const NewsDetail = () => {
@@ -241,8 +241,8 @@ const NewsDetail = () => {
         <div className="mt-16">
           <h2 className="text-3xl font-extrabold text-gray-900 mb-10 text-center">Latest News</h2>
           
-          {/* Single White Frame for All Latest News */}
-          <div className="bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden max-w-4xl mx-auto">
+          {/* Single White Frame for All Latest News - Same width as news details */}
+          <div className="bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden">
             {getLatestNews(id).map((item, index) => (
               <div key={item.id}>
                 {/* News Row */}
@@ -253,34 +253,18 @@ const NewsDetail = () => {
                     window.scrollTo(0, 0)
                   }}
                 >
-                  {/* Small Image */}
-                  <div className="flex-shrink-0 mr-4">
+                  {/* Bigger Image */}
+                  <div className="flex-shrink-0 mr-6">
                     {item.image ? (
-                      <div className="w-16 h-16 rounded-lg overflow-hidden relative">
+                      <div className="w-24 h-24 rounded-lg overflow-hidden">
                         <img
                           src={item.image || "/placeholder.svg"}
                           alt={item.title}
                           className="w-full h-full object-cover"
                         />
-                        {/* Category badge on image */}
-                        <div className="absolute top-1 left-1">
-                          <span
-                            className={`px-1.5 py-0.5 text-xs font-semibold rounded capitalize ${getCategoryColor(item.category)}`}
-                          >
-                            {item.category.charAt(0).toUpperCase()}
-                          </span>
-                        </div>
-                        {/* Archived badge */}
-                        {isExpired(item.expiryDate) && (
-                          <div className="absolute top-1 right-1">
-                            <span className="px-1.5 py-0.5 bg-gray-700 text-white text-xs font-semibold rounded">
-                              A
-                            </span>
-                          </div>
-                        )}
                       </div>
                     ) : (
-                      <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                      <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
                         <span className="text-gray-400 text-xs">No Image</span>
                       </div>
                     )}
@@ -297,7 +281,7 @@ const NewsDetail = () => {
                           {item.description}
                         </p>
                         <div className="flex items-center text-sm text-gray-500">
-                          <Calendar className="w-4 h-4 mr-1" />
+                          <img src={assets.calender} alt="Calendar" className="w-4 h-4 mr-2" />
                           <span>{item.date}</span>
                         </div>
                       </div>
