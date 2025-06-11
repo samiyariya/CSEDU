@@ -1,31 +1,30 @@
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { 
-  Calendar, 
-  MapPin, 
-  Clock, 
-  User, 
-  ArrowLeft, 
-  Share2, 
-  Heart, 
-  ExternalLink,
+"use client"
+import { useParams, useNavigate } from "react-router-dom"
+import {
+  Calendar,
+  MapPin,
+  Clock,
+  User,
+  ArrowLeft,
+  Share2,
   Archive,
   AlertTriangle,
-  Printer
-} from 'lucide-react';
-import { sampleNews, assets } from '../assets/assets';
-import { isExpired } from './News';
+  Printer,
+  ChevronRight,
+} from "lucide-react"
+import { sampleNews } from "../assets/assets"
+import { isExpired } from "./News"
 
 const NewsDetail = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  
+  const { id } = useParams()
+  const navigate = useNavigate()
+
   // Find the news item by ID
-  const news = sampleNews.find(item => item.id === parseInt(id));
-  
+  const news = sampleNews.find((item) => item.id === Number.parseInt(id))
+
   // Check if news is archived based on expiry date
-  const newsIsArchived = isExpired(news?.expiryDate);
-  
+  const newsIsArchived = isExpired(news?.expiryDate)
+
   // If news not found, show error message
   if (!news) {
     return (
@@ -34,29 +33,38 @@ const NewsDetail = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">News Not Found</h2>
           <p className="text-gray-600 mb-6">The requested news article could not be found.</p>
           <button
-            onClick={() => navigate('/news')}
+            onClick={() => navigate("/news")}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Back to News
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   // Function to get category badge color
   const getCategoryColor = (category) => {
     switch (category) {
-      case 'academic':
-        return 'bg-blue-600 text-white';
-      case 'general':
-        return 'bg-green-600 text-white';
-      case 'administrative':
-        return 'bg-purple-600 text-white';
+      case "academic":
+        return "bg-blue-600 text-white"
+      case "general":
+        return "bg-green-600 text-white"
+      case "administrative":
+        return "bg-purple-600 text-white"
       default:
-        return 'bg-gray-600 text-white';
+        return "bg-gray-600 text-white"
     }
-  };
+  }
+
+  // Add a function to get the latest news items (after the getCategoryColor function)
+  const getLatestNews = (currentNewsId, limit = 3) => {
+    // Filter out the current news and get the latest ones
+    return sampleNews
+      .filter((item) => item.id !== Number.parseInt(currentNewsId))
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, limit)
+  }
 
   const handleShare = () => {
     if (navigator.share) {
@@ -64,23 +72,23 @@ const NewsDetail = () => {
         title: news.title,
         text: news.description,
         url: window.location.href,
-      });
+      })
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('News link copied to clipboard!');
+      navigator.clipboard.writeText(window.location.href)
+      alert("News link copied to clipboard!")
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Back Button */}
         <button
-          onClick={() => navigate(newsIsArchived ? '/news/archived' : '/news')}
+          onClick={() => navigate(newsIsArchived ? "/news/archived" : "/news")}
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          Back to {newsIsArchived ? 'Archived ' : ''}News
+          Back to {newsIsArchived ? "Archived " : ""}News
         </button>
 
         {/* Main News Card */}
@@ -88,19 +96,17 @@ const NewsDetail = () => {
           {/* News Image */}
           {news.image && (
             <div className="h-64 md:h-80 relative overflow-hidden">
-              <img
-                src={news.image}
-                alt={news.title}
-                className="w-full h-full object-cover"
-              />
+              <img src={news.image || "/placeholder.svg"} alt={news.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-              
+
               {/* Category Badge */}
               <div className="absolute top-4 left-4 flex gap-2">
-                <span className={`px-4 py-2 text-sm font-medium rounded-full capitalize ${getCategoryColor(news.category)}`}>
+                <span
+                  className={`px-4 py-2 text-sm font-medium rounded-full capitalize ${getCategoryColor(news.category)}`}
+                >
                   {news.category}
                 </span>
-                
+
                 {/* Archived Badge */}
                 {newsIsArchived && (
                   <span className="px-4 py-2 bg-gray-600 text-white text-sm font-medium rounded-full flex items-center gap-1">
@@ -130,9 +136,7 @@ const NewsDetail = () => {
 
           <div className="p-8">
             {/* News Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {news.title}
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{news.title}</h1>
 
             {/* News Info Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -203,15 +207,13 @@ const NewsDetail = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-4">Article Content</h3>
               <div className="text-gray-700 leading-relaxed space-y-4">
                 {news.detailedDescription ? (
-                  news.detailedDescription.split('\n\n').map((paragraph, index) => (
+                  news.detailedDescription.split("\n\n").map((paragraph, index) => (
                     <p key={index} className="whitespace-pre-line">
                       {paragraph.trim()}
                     </p>
                   ))
                 ) : (
-                  <p className="whitespace-pre-line">
-                    {news.description}
-                  </p>
+                  <p className="whitespace-pre-line">{news.description}</p>
                 )}
               </div>
             </div>
@@ -239,10 +241,10 @@ const NewsDetail = () => {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <button
-                onClick={() => navigate(newsIsArchived ? '/news/archived' : '/news')}
+                onClick={() => navigate(newsIsArchived ? "/news/archived" : "/news")}
                 className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
               >
-                View More {newsIsArchived ? 'Archived ' : ''}News
+                View More {newsIsArchived ? "Archived " : ""}News
               </button>
 
               {/* <button
@@ -262,9 +264,81 @@ const NewsDetail = () => {
             </div>
           </div>
         </div>
+
+        {/* Latest News Section */}
+<div className="mt-16">
+  <h2 className="text-3xl font-extrabold text-gray-900 mb-10 text-center">
+    Latest News
+  </h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    {getLatestNews(id).map((item) => (
+      <div
+        key={item.id}
+        className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 cursor-pointer"
+        onClick={() => {
+          navigate(`/news/${item.id}`)
+          window.scrollTo(0, 0)
+        }}
+      >
+        {item.image && (
+          <div className="h-52 relative overflow-hidden">
+            <img
+              src={item.image || "/placeholder.svg"}
+              alt={item.title}
+              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+            />
+            <div className="absolute top-3 left-3">
+              <span
+                className={`px-3 py-1 text-xs font-semibold rounded-full shadow-sm capitalize ${getCategoryColor(item.category)}`}
+              >
+                {item.category}
+              </span>
+            </div>
+            {isExpired(item.expiryDate) && (
+              <div className="absolute top-3 right-3">
+                <span className="px-3 py-1 bg-gray-700 text-white text-xs font-semibold rounded-full shadow-sm">
+                  Archived
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+        <div className="p-5">
+          <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2">
+            {item.title}
+          </h3>
+          <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
+          <div className="flex justify-between items-center text-sm text-gray-500">
+            <div className="flex items-center">
+              <Calendar className="w-4 h-4 mr-1" />
+              <span>{item.date}</span>
+            </div>
+            <div className="text-blue-600 hover:underline flex items-center font-medium">
+              Read more
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div className="mt-12 text-center">
+    <button
+      onClick={() => navigate("/news")}
+      className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-300 font-semibold inline-flex items-center shadow-md"
+    >
+      View All News
+      <ChevronRight className="w-5 h-5 ml-2" />
+    </button>
+  </div>
+</div>
+
+
+
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NewsDetail;
+export default NewsDetail
