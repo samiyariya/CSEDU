@@ -138,6 +138,9 @@ const NewsDetail = () => {
           <div className={`bg-white p-8 border border-gray-100 shadow-sm ${news.image ? 'rounded-b-lg' : 'rounded-lg'}`}>
             {/* News Title */}
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{news.title}</h1>
+            
+            {/* Horizontal Line after Title */}
+            <div className="border-t border-gray-200 mb-8"></div>
 
             {/* News Info Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
