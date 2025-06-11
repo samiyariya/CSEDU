@@ -81,7 +81,7 @@ const NewsDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Back Button */}
         <button
           onClick={() => navigate(newsIsArchived ? "/news/archived" : "/news")}
@@ -91,11 +91,11 @@ const NewsDetail = () => {
           Back to {newsIsArchived ? "Archived " : ""}News
         </button>
 
-        {/* Main News Card */}
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+        {/* Main News Content */}
+        <div className="bg-transparent overflow-hidden">
           {/* News Image */}
           {news.image && (
-            <div className="h-64 md:h-80 relative overflow-hidden">
+            <div className="h-64 md:h-80 relative overflow-hidden rounded-t-lg">
               <img src={news.image || "/placeholder.svg"} alt={news.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black bg-opacity-20"></div>
 
@@ -134,9 +134,10 @@ const NewsDetail = () => {
             </div>
           )}
 
-          <div className="p-8">
+          {/* Single White Frame with All Content */}
+          <div className={`bg-white p-8 border border-gray-100 shadow-sm ${news.image ? 'rounded-b-lg' : 'rounded-lg'}`}>
             {/* News Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{news.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{news.title}</h1>
 
             {/* News Info Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -187,25 +188,13 @@ const NewsDetail = () => {
               </div>
             </div>
 
-            {/* Archive Notice */}
-            {newsIsArchived && (
-              <div className="mb-8">
-                <div className="flex items-center p-4 bg-amber-50 rounded-lg border border-amber-200">
-                  <AlertTriangle className="w-5 h-5 text-amber-600 mr-3" />
-                  <div>
-                    <p className="font-semibold text-amber-800">Archived Content</p>
-                    <p className="text-sm text-amber-700">
-                      This notice has been archived and may contain outdated information.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* Divider */}
+            <div className="border-t border-gray-200 my-8"></div>
 
-            {/* Description */}
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Article Content</h3>
-              <div className="text-gray-700 leading-relaxed space-y-4">
+            {/* Article Content */}
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Article Content</h3>
+              <div className="text-gray-700 leading-relaxed space-y-6 text-lg">
                 {news.detailedDescription ? (
                   news.detailedDescription.split("\n\n").map((paragraph, index) => (
                     <p key={index} className="whitespace-pre-line">
@@ -218,124 +207,97 @@ const NewsDetail = () => {
               </div>
             </div>
 
-            {/* Expiry Date Information
-            {news.expiryDate && (
-              <div className="bg-gray-50 rounded-lg p-6 mb-8">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Validity Information</h3>
-                <div className="flex items-center">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mr-4">
-                    <Calendar className="w-6 h-6 text-gray-600" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900">
-                      {newsIsArchived ? 'Expired on:' : 'Valid until:'} {news.expiryDate}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      {newsIsArchived ? 'This notice has expired' : 'Notice validity period'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )} */}
-
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-gray-200">
               <button
                 onClick={() => navigate(newsIsArchived ? "/news/archived" : "/news")}
                 className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
               >
                 View More {newsIsArchived ? "Archived " : ""}News
               </button>
-
-              {/* <button
-                onClick={() => window.print()}
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
-              >
-                Print Article
-              </button>
-
-              <button
-                onClick={handleShare}
-                className="flex items-center justify-center px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-semibold"
-              >
-                <Share2 className="w-4 h-4 mr-2" />
-                Share
-              </button> */}
             </div>
           </div>
+
+          {/* Archive Notice - Outside the white frame */}
+          {newsIsArchived && (
+            <div className="mt-6">
+              <div className="flex items-center p-6 bg-amber-50 rounded-lg border border-amber-200">
+                <AlertTriangle className="w-6 h-6 text-amber-600 mr-4" />
+                <div>
+                  <p className="font-semibold text-amber-800 text-lg">Archived Content</p>
+                  <p className="text-amber-700">
+                    This notice has been archived and may contain outdated information.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Latest News Section */}
-<div className="mt-16">
-  <h2 className="text-3xl font-extrabold text-gray-900 mb-10 text-center">
-    Latest News
-  </h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-    {getLatestNews(id).map((item) => (
-      <div
-        key={item.id}
-        className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 cursor-pointer"
-        onClick={() => {
-          navigate(`/news/${item.id}`)
-          window.scrollTo(0, 0)
-        }}
-      >
-        {item.image && (
-          <div className="h-52 relative overflow-hidden">
-            <img
-              src={item.image || "/placeholder.svg"}
-              alt={item.title}
-              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
-            />
-            <div className="absolute top-3 left-3">
-              <span
-                className={`px-3 py-1 text-xs font-semibold rounded-full shadow-sm capitalize ${getCategoryColor(item.category)}`}
+        <div className="mt-16">
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-10 text-center">Latest News</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {getLatestNews(id).map((item) => (
+              <div
+                key={item.id}
+                className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 cursor-pointer"
+                onClick={() => {
+                  navigate(`/news/${item.id}`)
+                  window.scrollTo(0, 0)
+                }}
               >
-                {item.category}
-              </span>
-            </div>
-            {isExpired(item.expiryDate) && (
-              <div className="absolute top-3 right-3">
-                <span className="px-3 py-1 bg-gray-700 text-white text-xs font-semibold rounded-full shadow-sm">
-                  Archived
-                </span>
+                {item.image && (
+                  <div className="h-52 relative overflow-hidden">
+                    <img
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.title}
+                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span
+                        className={`px-3 py-1 text-xs font-semibold rounded-full shadow-sm capitalize ${getCategoryColor(item.category)}`}
+                      >
+                        {item.category}
+                      </span>
+                    </div>
+                    {isExpired(item.expiryDate) && (
+                      <div className="absolute top-3 right-3">
+                        <span className="px-3 py-1 bg-gray-700 text-white text-xs font-semibold rounded-full shadow-sm">
+                          Archived
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div className="p-5">
+                  <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2">{item.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
+                  <div className="flex justify-between items-center text-sm text-gray-500">
+                    <div className="flex items-center">
+                      <Calendar className="w-4 h-4 mr-1" />
+                      <span>{item.date}</span>
+                    </div>
+                    <div className="text-blue-600 hover:underline flex items-center font-medium">
+                      Read more
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </div>
+                  </div>
+                </div>
               </div>
-            )}
+            ))}
           </div>
-        )}
-        <div className="p-5">
-          <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2">
-            {item.title}
-          </h3>
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3">{item.description}</p>
-          <div className="flex justify-between items-center text-sm text-gray-500">
-            <div className="flex items-center">
-              <Calendar className="w-4 h-4 mr-1" />
-              <span>{item.date}</span>
-            </div>
-            <div className="text-blue-600 hover:underline flex items-center font-medium">
-              Read more
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </div>
+
+          <div className="mt-12 text-center">
+            <button
+              onClick={() => navigate("/news")}
+              className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-300 font-semibold inline-flex items-center shadow-md"
+            >
+              View All News
+              <ChevronRight className="w-5 h-5 ml-2" />
+            </button>
           </div>
         </div>
-      </div>
-    ))}
-  </div>
-
-  <div className="mt-12 text-center">
-    <button
-      onClick={() => navigate("/news")}
-      className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-300 font-semibold inline-flex items-center shadow-md"
-    >
-      View All News
-      <ChevronRight className="w-5 h-5 ml-2" />
-    </button>
-  </div>
-</div>
-
-
-
       </div>
     </div>
   )
