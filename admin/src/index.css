@@ -1,4 +1,29 @@
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-family: Outfit;    /*for different kind of fonts*/
+}
+
+.active hr{                /*horizontal lines become visible on click on dashboard*/
+    @apply block    
+}
+
+::-webkit-scrollbar{
+    @apply hidden          /*hides the scrollbar & makes it transparent*/
+}
+
+@media (max-width:740px) {
+    .active p{
+        @apply text-white bg-primary
+    }
+}
+
+
+
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +90,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
