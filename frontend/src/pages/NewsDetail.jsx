@@ -192,7 +192,7 @@ const NewsDetail = () => {
             </div>
 
             {/* Divider */}
-            <div className="border-t border-gray-200 my-8"></div>
+            <div className="border-t border-gray-300 my-8"></div>
 
             {/* Article Content */}
             <div>
@@ -247,7 +247,7 @@ const NewsDetail = () => {
               <div key={item.id}>
                 {/* News Row */}
                 <div
-                  className="flex items-center p-6 hover:bg-gray-50 transition-colors cursor-pointer"
+                  className="flex items-center p-6 hover:bg-gray-50 hover:shadow-md transition-all duration-300 cursor-pointer group"
                   onClick={() => {
                     navigate(`/news/${item.id}`)
                     window.scrollTo(0, 0)
@@ -256,7 +256,7 @@ const NewsDetail = () => {
                   {/* Bigger Image */}
                   <div className="flex-shrink-0 mr-6">
                     {item.image ? (
-                      <div className="w-24 h-24 rounded-lg overflow-hidden">
+                      <div className="w-24 h-24 rounded-lg overflow-hidden group-hover:scale-105 transition-transform duration-300">
                         <img
                           src={item.image || "/placeholder.svg"}
                           alt={item.title}
@@ -264,7 +264,7 @@ const NewsDetail = () => {
                         />
                       </div>
                     ) : (
-                      <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
+                      <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center group-hover:bg-gray-300 transition-colors duration-300">
                         <span className="text-gray-400 text-xs">No Image</span>
                       </div>
                     )}
@@ -274,7 +274,7 @@ const NewsDetail = () => {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
                       <div className="flex-1 pr-4">
-                        <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2 leading-tight">
+                        <h3 className="font-semibold text-gray-900 text-lg mb-2 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors duration-300">
                           {item.title}
                         </h3>
                         <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
@@ -288,7 +288,7 @@ const NewsDetail = () => {
                       
                       {/* Read more arrow */}
                       <div className="flex-shrink-0">
-                        <ChevronRight className="w-5 h-5 text-gray-400" />
+                        <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
                       </div>
                     </div>
                   </div>
