@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { assets } from '../assets/assets.js';
 
 const NewsCard = ({ news, isArchived }) => {
   const navigate = useNavigate();
@@ -62,77 +63,69 @@ const NewsCard = ({ news, isArchived }) => {
 
       <div className="p-6">
         <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors duration-200">
+          <div className="flex-1 mr-4">
+            {/* Title */}
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors duration-200 mb-2">
               {news.title}
             </h3>
-            <p className="text-sm text-gray-500 mb-3">
-              Published on: {formatDate(news.date)}
-            </p>
-            {news.description && (
+
+            <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+              <img 
+                src={assets.calender} 
+                alt="Calendar" 
+                className="w-4 h-4"
+              />
+              <span>{formatDate(news.date)}</span>
+            </div>
+            {/* {news.description && (
               <p className="text-gray-600 text-sm line-clamp-2 mb-3">
                 {news.description}
               </p>
-            )}
+            )} */}
             {news.category && (
-              <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-4">
+              <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
                 {news.category}
               </span>
             )}
-            
-            {/* Action Buttons */}
-            <div className="flex items-center gap-3 mt-4">
-              {/* Download PDF Button */}
-              <button
-                onClick={handleDownloadPDF}
-                className="flex items-center gap-2 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 rounded-lg text-sm font-medium transition-all duration-200 border border-red-200 hover:border-red-300"
-                title="Download PDF"
-              >
-                <svg 
-                  className="w-4 h-4" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Download PDF
-              </button>
-
-              {/* View Details Button */}
-              <button
-                onClick={handleViewDetails}
-                className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 hover:text-blue-700 rounded-lg text-sm font-medium transition-all duration-200 border border-blue-200 hover:border-blue-300"
-                title="View Details"
-              >
-                <svg 
-                  className="w-4 h-4" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                View Details
-              </button>
-            </div>
           </div>
 
-          {/* Simple chevron right SVG */}
-          <svg
-            className="h-5 w-5 text-gray-400 group-hover:text-blue-600 transition-colors duration-200 ml-4 flex-shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
+          {/* Action Buttons - Stacked Vertically */}
+          <div className="flex flex-col gap-3 flex-shrink-0">
+            {/* Download PDF Button */}
+            <button
+              onClick={handleDownloadPDF}
+              className="flex items-center gap-2 px-4 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+              title="Download PDF"
+            >
+              <svg 
+                className="w-4 h-4" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download PDF
+            </button>
+
+            {/* View Details Button */}
+            <button
+              onClick={handleViewDetails}
+              className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+              title="View Details"
+            >
+              <svg 
+                className="w-4 h-4" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              View Details
+            </button>
+          </div>
         </div>
       </div>
     </div>
