@@ -170,62 +170,66 @@ const News = () => {
     <div className="bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Notice Board title styled like Notice.jsx */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <svg 
-              className="h-8 w-8 text-primary mr-3" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
-            {showArchived ? (
-              <h2 className="text-3xl font-bold text-primary">
-                Archived Notices
-              </h2>
-            ) : (
-              <h2 className="text-3xl font-bold text-primary">
-                Notice and Announcements
-              </h2>
-            )}
-          </div>
-          <div className="w-80 h-1 bg-secondary mx-auto mb-8"></div>
-          
-          {/* View Archived button - positioned below the title */}
-          {!showArchived && (
-            <button
-              onClick={toggleArchived}
-              className="flex items-center gap-2 px-4 py-2 mx-auto text-primary hover:bg-blue-50 hover:text-primary border border-gray-300 rounded-xl transition-all duration-200 font-medium"
-            >
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-4">
+            {/* Left side - Title with icon */}
+            <div className="flex items-center">
               <svg 
-                className="w-5 h-5" 
-                fill="currentColor" 
-                viewBox="0 0 20 20"
-              >
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-              View Archived ({archivedNoticesCount})
-            </button>
-          )}
-          
-          {/* Back to Active button for archived view */}
-          {showArchived && (
-            <button
-              onClick={toggleArchived}
-              className="flex items-center gap-2 px-3 py-2 mx-auto text-primary hover:bg-blue-50 hover:text-primary border border-gray-300 rounded-xl transition-all duration-200 font-medium"
-            >
-              <svg 
-                className="w-4 h-4" 
+                className="h-8 w-8 text-primary mr-3" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
-              Back to Active
-            </button>
-          )}
+              {showArchived ? (
+                <h2 className="text-3xl font-bold text-primary">
+                  Archived Notices
+                </h2>
+              ) : (
+                <h2 className="text-3xl font-bold text-primary">
+                  Notice and Announcements
+                </h2>
+              )}
+            </div>
+
+            {/* Right side - Archive/Back button */}
+            <div>
+              {!showArchived && (
+                <button
+                  onClick={toggleArchived}
+                  className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-blue-50 hover:text-primary border border-gray-300 rounded-xl transition-all duration-200 font-medium"
+                >
+                  <svg 
+                    className="w-5 h-5" 
+                    fill="currentColor" 
+                    viewBox="0 0 20 20"
+                  >
+                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                  </svg>
+                  View Archived ({archivedNoticesCount})
+                </button>
+              )}
+              
+              {showArchived && (
+                <button
+                  onClick={toggleArchived}
+                  className="flex items-center gap-2 px-3 py-2 text-primary hover:bg-blue-50 hover:text-primary border border-gray-300 rounded-xl transition-all duration-200 font-medium"
+                >
+                  <svg 
+                    className="w-4 h-4" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Back to Active
+                </button>
+              )}
+            </div>
+          </div>
+          <div className="w-80 h-1 bg-secondary mb-8"></div>
         </div>
 
         {/* Archive Notice - Only show when viewing archived notices */}
