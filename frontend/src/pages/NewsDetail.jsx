@@ -265,6 +265,45 @@ const NewsDetail = () => {
               </div>
             </div>
 
+            {/* Attachments Section */}
+            {news.attachments && news.attachments.length > 0 && (
+              <div className="mt-8 pt-8 border-t border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Attachments</h3>
+                <div className="space-y-3">
+                  {news.attachments.map((attachment, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center w-10 h-10 bg-red-100 rounded-lg">
+                          <Download className="w-5 h-5 text-red-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">{attachment.name}</p>
+                          {attachment.size && (
+                            <p className="text-sm text-gray-500">{attachment.size}</p>
+                          )}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = attachment.url;
+                          link.download = attachment.name;
+                          link.target = '_blank';
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm hover:shadow-md"
+                      >
+                        <Download className="w-4 h-4" />
+                        Download
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-gray-200">
               <button
