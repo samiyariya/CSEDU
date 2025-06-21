@@ -8,6 +8,8 @@ import policy from './policy.png';
 import faculty from './faculty.png';
 import security from './security.png';
 import calender from './calendar.png';
+import pdf1 from './pdf1.pdf';
+import pdf2 from './pdf2.pdf';
 
 export const assets = {
   iftar,
@@ -19,7 +21,9 @@ export const assets = {
   policy,
   faculty,
   security, 
-  calender
+  calender, 
+  pdf1, 
+  pdf2
 };
 
 export const sampleNews = [
@@ -629,7 +633,7 @@ export const sampleNotices = [
     id: 1,
     title: "১৫-০৭-২০২৫ তারিখের ইন্টার্নাল/ডিউটির পরীক্ষার সময় পরিবর্তন সংক্রান্ত বিজ্ঞপ্তি",
     description: "আগামী ১৫ জুলাই ২০২৫ তারিখে অনুষ্ঠিতব্য ইন্টার্নাল/ডিউটি পরীক্ষার সময়সূচী পরিবর্তন করা হয়েছে।",
-    detailedDescription: "কম্পিউটার সাইন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগের সকল শিক্ষার্থীদের জানানো যাচ্ছে যে, আগামী ১৫ জুলাই ২০২৫ তারিখে অনুষ্ঠিতব্য ইন্টার্নাল/ডিউটি পরীক্ষার সময়সূচী পরিবর্তন করা হয়েছে।\n\nনতুন সময়সূচী:\n- পূর্বে নির্ধারিত সময়: সকাল ১০:০০ টা - দুপুর ১২:০০ টা\n- নতুন সময়: দুপুর ২:০০ টা - বিকাল ৪:০০ টা\n\nপরীক্ষার স্থান এবং অন্যান্য নিয়মাবলী পূর্বের মতোই থাকবে। সকল শিক্ষার্থীদের নতুন সময়সূচী অনুযায়ী পরীক্ষায় উপস্থিত থাকার জন্য অনুরোধ করা হচ্ছে।",
+    pdfUrl: pdf1,
     category: 'academic',
     date: 'July 10, 2025',
     expiryDate: 'July 16, 2025',
@@ -642,7 +646,7 @@ export const sampleNotices = [
     id: 2,
     title: "ইফতার ও দোয়া অনুষ্ঠান-২০২৫ সংক্রান্ত বিজ্ঞপ্তি",
     description: "রমজান মাসে আয়োজিত ইফতার ও দোয়া অনুষ্ঠানে সকলের উপস্থিতি কামনা করা হচ্ছে।",
-    detailedDescription: "কম্পিউটার সাইন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগের পক্ষ থেকে আসন্ন পবিত্র রমজান মাস উপলক্ষে ইফতার ও দোয়া অনুষ্ঠানের আয়োজন করা হয়েছে।\n\nঅনুষ্ঠানের বিবরণ:\n- তারিখ: ১৫ রমজান, ১৪৪৬ হিজরি\n- সময়: ইফতারের সময় (সূর্যাস্তের পর)\n- স্থান: সিএসইডিইউ মূল অডিটোরিয়াম\n\nঅনুষ্ঠানে কুরআন তিলাওয়াত, হামদ-নাত, ইসলামিক আলোচনা এবং সম্মিলিত দোয়ার ব্যবস্থা থাকবে। সকল শিক্ষার্থী, শিক্ষক এবং কর্মচারীদের উপস্থিতি কামনা করা হচ্ছে।\n\nউপস্থিতি নিশ্চিতকরণের জন্য বিভাগীয় অফিসে যোগাযোগ করুন।",
+    pdfUrl: pdf2,
     category: 'general',
     date: 'March 1, 2025',
     expiryDate: 'March 20, 2025',
@@ -653,106 +657,54 @@ export const sampleNotices = [
   },
   {
     id: 3,
-    title: "Course Registration Deadline Extension Notice",
-    description: "The deadline for course registration for Spring 2025 semester has been extended by one week.",
-    detailedDescription: "The Academic Office announces that the course registration deadline for Spring 2025 semester has been extended by one week due to technical issues with the online registration system.\n\nNew Registration Details:\n- Original Deadline: June 20, 2025\n- Extended Deadline: June 27, 2025, 11:59 PM\n- Late Registration Fee: Waived for this extension period\n\nStudents who have already completed registration do not need to take any action. Those who have not yet registered are advised to complete their registration as soon as possible to avoid any issues.\n\nFor assistance with course registration, students can contact the Registrar Office or visit the Academic Advising Center.",
+    title: "শীতকালীন সেমিস্টার ২০২৫ ভর্তি বিজ্ঞপ্তি",
+    description: "কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগে শীতকালীন সেমিস্টার ২০২৫-এর জন্য ভর্তির আবেদন শুরু।",
+    pdfUrl: pdf1,
     category: 'academic',
-    date: 'June 18, 2025',
-    expiryDate: 'June 28, 2025',
-    author: 'Registrar Office',
-    location: 'CSEDU Administration',
-    time: 'Extended until June 27, 2025',
+    date: 'November 1, 2024',
+    expiryDate: 'November 30, 2024',
+    author: 'Admissions Office',
+    location: 'CSEDU',
+    time: 'Application Period',
     isArchived: false
   },
   {
     id: 4,
-    title: "বৃত্তি প্রদান অনুষ্ঠান ২০২৫ সংক্রান্ত বিজ্ঞপ্তি",
-    description: "মেধাবী শিক্ষার্থীদের মাঝে বৃত্তি প্রদান অনুষ্ঠানে সকলের উপস্থিতি কামনা।",
-    detailedDescription: "কম্পিউটার সাইন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগের মেধাবী শিক্ষার্থীদের মাঝে বৃত্তি প্রদান অনুষ্ঠান আয়োজন করা হবে।\n\nঅনুষ্ঠানের বিবরণ:\n- তারিখ: ২৫ জুলাই ২০২৫\n- সময়: বিকাল ৩:০০ টা\n- স্থান: সিএসইডিইউ সম্মেলন কক্ষ\n\nবৃত্তির ধরন:\n- মেধা বৃত্তি (৫০,০০০ টাকা)\n- গবেষণা বৃত্তি (৩০,০০০ টাকা)\n- আর্থিক সহায়তা বৃত্তি (২০,০০০ টাকা)\n\nবৃত্তিপ্রাপ্ত শিক্ষার্থীদের অভিভাবকসহ উপস্থিত থাকার জন্য অনুরোধ করা হচ্ছে। অনুষ্ঠানে বিশেষ অতিথি হিসেবে উপস্থিত থাকবেন বিশ্ববিদ্যালয়ের মাননীয় উপাচার্য।",
+    title: "গবেষণা প্রবন্ধ জমাদানের সময়সীমা বর্ধিতকরণ",
+    description: "আন্তর্জাতিক সম্মেলনে গবেষণা প্রবন্ধ জমাদানের সময়সীমা আরো ১৫ দিন বর্ধিত করা হয়েছে।",
+    pdfUrl: pdf2,
     category: 'academic',
-    date: 'July 20, 2025',
-    expiryDate: 'July 26, 2025',
-    author: 'Scholarship Committee',
-    location: 'CSEDU Conference Hall',
-    time: '3:00 PM',
+    date: 'June 5, 2025',
+    expiryDate: 'July 1, 2025',
+    author: 'Research Committee',
+    location: 'CSEDU',
+    time: 'Extended Deadline',
     isArchived: false
   },
   {
     id: 5,
-    title: "Faculty Recruitment Drive 2025",
-    description: "Applications invited for faculty positions in Computer Science and Engineering Department.",
-    detailedDescription: "The Computer Science and Engineering Department invites applications for faculty positions for the academic year 2025-2026.\n\nPositions Available:\n- Professor (2 positions) - Specialization in AI/ML or Cybersecurity\n- Associate Professor (3 positions) - Software Engineering, Data Science, or Computer Networks\n- Assistant Professor (5 positions) - All CS specializations welcome\n- Lecturer (4 positions) - Fresh PhD graduates preferred\n\nEligibility Criteria:\n- PhD in Computer Science or related field\n- Strong research background with publications\n- Teaching experience preferred\n- Industry experience considered as additional qualification\n\nApplication Requirements:\n- Complete CV with publication list\n- Research statement (2-3 pages)\n- Teaching philosophy statement\n- Three reference letters\n\nApplication Deadline: August 31, 2025\nInterviews will be conducted in September 2025.",
+    title: "ক্যাম্পাস নিরাপত্তা ব্যবস্থা উন্নয়ন বিজ্ঞপ্তি",
+    description: "ক্যাম্পাসে নতুন নিরাপত্তা ব্যবস্থা চালু করা হয়েছে। সকলের সহযোগিতা কামনা করা হচ্ছে।",
+    pdfUrl: pdf1,
     category: 'administrative',
-    date: 'July 1, 2025',
-    expiryDate: 'September 1, 2025',
-    author: 'Human Resources Department',
-    location: 'CSEDU Administration',
-    time: 'Application Deadline: August 31, 2025',
+    date: 'May 15, 2025',
+    expiryDate: 'August 15, 2025',
+    author: 'Security Office',
+    location: 'Campus-wide',
+    time: 'Immediate Implementation',
     isArchived: false
   },
   {
     id: 6,
-    title: "ল্যাবরেটরি নিরাপত্তা নির্দেশনা ২০২৫",
-    description: "সকল ল্যাবরেটরি ব্যবহারকারীদের জন্য নতুন নিরাপত্তা নির্দেশনা জারি করা হয়েছে।",
-    detailedDescription: "কম্পিউটার সাইন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগের সকল ল্যাবরেটরি ব্যবহারকারীদের জন্য নতুন নিরাপত্তা নির্দেশনা জারি করা হয়েছে।\n\nমূল নির্দেশনাসমূহ:\n১. ল্যাবে প্রবেশের পূর্বে অবশ্যই আইডি কার্ড প্রদর্শন করতে হবে\n২. খাদ্য ও পানীয় ল্যাবরেটরিতে নিষিদ্ধ\n৩. কম্পিউটার ব্যবহারের পর অবশ্যই লগ আউট করতে হবে\n৪. অনুমোদিত সফটওয়্যার ছাড়া অন্য কিছু ইনস্টল করা যাবে না\n৫. ল্যাব ত্যাগের সময় চেয়ার ও টেবিল পরিষ্কার রাখতে হবে\n\nনিয়ম লঙ্ঘনের ক্ষেত্রে ল্যাব ব্যবহারের অধিকার বাতিল করা হতে পারে। সকলের সহযোগিতা কামনা করা হচ্ছে।",
-    category: 'administrative',
-    date: 'June 15, 2025',
-    expiryDate: 'December 31, 2025',
-    author: 'Lab Administration',
-    location: 'All Computer Labs',
-    time: 'Effective Immediately',
-    isArchived: false
-  },
-  {
-    id: 7,
-    title: "International Conference Participation Opportunity",
-    description: "Students invited to present research papers at upcoming international conferences with funding support.",
-    detailedDescription: "The Department of Computer Science and Engineering announces opportunities for students to present their research work at prestigious international conferences with full funding support.\n\nAvailable Conferences:\n- International Conference on Machine Learning (ICML) 2025 - Hawaii, USA\n- IEEE International Conference on Computer Vision (ICCV) 2025 - Paris, France\n- ACM SIGCHI Conference on Human Factors in Computing Systems - Tokyo, Japan\n- International Conference on Software Engineering (ICSE) 2025 - Melbourne, Australia\n\nFunding Covers:\n- Conference registration fees\n- Travel expenses (flight tickets)\n- Accommodation for conference duration\n- Daily allowance for meals\n\nEligibility:\n- Currently enrolled graduate students\n- Research paper accepted at the conference\n- Faculty supervisor recommendation\n- Minimum CGPA of 3.5\n\nApplication deadline: August 15, 2025\nFor more information, contact the Research Office.",
-    category: 'academic',
-    date: 'July 5, 2025',
-    expiryDate: 'August 16, 2025',
-    author: 'Research Office',
-    location: 'International Venues',
-    time: 'Various Conference Dates',
-    isArchived: false
-  },
-  {
-    id: 8,
-    title: "গ্রীষ্মকালীন ছুটির সময়সূচী ২০২৫",
-    description: "গ্রীষ্মকালীন ছুটির সময়সূচী এবং পুনরায় ক্লাস শুরুর তারিখ ঘোষণা।",
-    detailedDescription: "কম্পিউটার সাইন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগের সকল শিক্ষার্থীদের জানানো যাচ্ছে যে গ্রীষ্মকালীন ছুটির সময়সূচী নির্ধারণ করা হয়েছে।\n\nছুটির বিবরণ:\n- ছুটি শুরু: ১ আগস্ট ২০২৅\n- ছুটি শেষ: ৩১ আগস্ট ২০২৫\n- ক্লাস পুনরায় শুরু: ১ সেপ্টেম্বর ২০২৫\n\nছুটির সময় বিশেষ ব্যবস্থা:\n- লাইব্রেরি সীমিত সময়ের জন্য খোলা থাকবে (সকাল ৯টা - বিকাল ৫টা)\n- জরুরি কাজের জন্য অফিস সকাল ১০টা থেকে দুপুর ২টা পর্যন্ত খোলা\n- ল্যাবরেটরি শুধুমাত্র গবেষণার কাজের জন্য পূর্ব অনুমতি সাপেক্ষে ব্যবহার করা যাবে\n\nসকল শিক্ষার্থীদের নিরাপদে ছুটি কাটানোর জন্য শুভকামনা।",
-    category: 'administrative',
-    date: 'July 25, 2025',
-    expiryDate: 'September 2, 2025',
-    author: 'Academic Office',
-    location: 'CSEDU',
-    time: 'August 1-31, 2025',
-    isArchived: false
-  },
-  {
-    id: 9,
-    title: "IT Infrastructure Upgrade Notice",
-    description: "Scheduled maintenance and upgrade of IT infrastructure. Temporary service interruptions expected.",
-    detailedDescription: "The IT Services Department announces a major infrastructure upgrade to improve network performance, security, and reliability across the CSEDU campus.\n\nUpgrade Schedule:\n- Phase 1: Server upgrades (July 28-30, 2025)\n- Phase 2: Network equipment replacement (August 1-5, 2025)\n- Phase 3: Security system updates (August 7-10, 2025)\n- Phase 4: Testing and optimization (August 12-15, 2025)\n\nExpected Service Interruptions:\n- Internet connectivity: Intermittent outages during Phase 2\n- Email services: 2-hour downtime on August 3, 2025\n- Student portal: Maintenance window August 8, 2025 (10 PM - 6 AM)\n- Lab computers: Rolling updates throughout Phase 3\n\nImprovement Benefits:\n- 5x faster internet speeds\n- Enhanced cybersecurity protection\n- Improved Wi-Fi coverage\n- Better system reliability\n- New backup systems\n\nUsers will be notified 24 hours before any scheduled downtime. Technical support will be available during business hours.",
-    category: 'administrative',
-    date: 'July 20, 2025',
-    expiryDate: 'August 16, 2025',
-    author: 'IT Services Department',
-    location: 'Campus-wide',
-    time: 'July 28 - August 15, 2025',
-    isArchived: false
-  },
-  {
-    id: 10,
-    title: "শিক্ষক দিবস উদযাপন ২০২৫",
-    description: "শিক্ষক দিবস উপলক্ষে বিশেষ অনুষ্ঠানের আয়োজন করা হয়েছে।",
-    detailedDescription: "কম্পিউটার সাইন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগের পক্ষ থেকে বিশ্ব শিক্ষক দিবস উপলক্ষে বিশেষ অনুষ্ঠানের আয়োজন করা হয়েছে।\n\nঅনুষ্ঠানের বিবরণ:\n- তারিখ: ৫ অক্টোবর ২০২৫ (শুক্রবার)\n- সময়: সকাল ১০:০০ টা - দুপুর ১:০০ টা\n- স্থান: সিএসইডিইউ মূল অডিটোরিয়াম\n\nঅনুষ্ঠানের কার্যক্রম:\n- শিক্ষকদের প্রতি সম্মাননা প্রদান\n- শিক্ষার্থীদের পক্ষ থেকে কৃতজ্ঞতা প্রকাশ\n- সাংস্কৃতিক অনুষ্ঠান\n- আলোচনা সভা: 'শিক্ষায় প্রযুক্তির ভূমিকা'\n- পুরস্কার বিতরণী (শ্রেষ্ঠ শিক্ষক, শ্রেষ্ঠ গবেষক)\n\nসকল শিক্ষার্থী ও কর্মচারীদের উপস্থিতি কামনা করা হচ্ছে। অনুষ্ঠান শেষে সকলের জন্য দুপুরের খাবারের ব্যবস্থা থাকবে।",
+    title: "বার্ষিক সাংস্কৃতিক অনুষ্ঠান ২০২৫",
+    description: "CSEDU-এর বার্ষিক সাংস্কৃতিক অনুষ্ঠানে অংশগ্রহণের জন্য নিবন্ধন শুরু হয়েছে।",
+    pdfUrl: pdf2,
     category: 'general',
-    date: 'September 30, 2025',
-    expiryDate: 'October 6, 2025',
+    date: 'April 1, 2025',
+    expiryDate: 'April 30, 2025',
     author: 'Cultural Committee',
     location: 'CSEDU Main Auditorium',
-    time: '10:00 AM - 1:00 PM',
+    time: 'Registration Open',
     isArchived: false
   }
 ];
