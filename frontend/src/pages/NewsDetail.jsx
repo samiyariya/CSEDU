@@ -269,37 +269,41 @@ const NewsDetail = () => {
             {news.attachments && news.attachments.length > 0 && (
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Attachments</h3>
-                <div className="space-y-3">
-                  {news.attachments.map((attachment, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors">
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 bg-red-100 rounded-lg">
-                          <Download className="w-5 h-5 text-red-600" />
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-900">{attachment.name}</p>
-                          {attachment.size && (
-                            <p className="text-sm text-gray-500">{attachment.size}</p>
-                          )}
+                <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {news.attachments.map((attachment, index) => (
+                      <div key={index} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-200 hover:border-gray-300">
+                        <div className="text-center">
+                          <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-lg mx-auto mb-3">
+                            <Download className="w-6 h-6 text-red-600" />
+                          </div>
+                          <div className="mb-3">
+                            <p className="font-medium text-gray-900 text-sm truncate" title={attachment.name}>
+                              {attachment.name}
+                            </p>
+                            {attachment.size && (
+                              <p className="text-xs text-gray-500 mt-1">{attachment.size}</p>
+                            )}
+                          </div>
+                          <button
+                            onClick={() => {
+                              const link = document.createElement('a');
+                              link.href = attachment.url;
+                              link.download = attachment.name;
+                              link.target = '_blank';
+                              document.body.appendChild(link);
+                              link.click();
+                              document.body.removeChild(link);
+                            }}
+                            className="w-full flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium transition-colors shadow-sm hover:shadow-md"
+                          >
+                            <Download className="w-3 h-3" />
+                            Download
+                          </button>
                         </div>
                       </div>
-                      <button
-                        onClick={() => {
-                          const link = document.createElement('a');
-                          link.href = attachment.url;
-                          link.download = attachment.name;
-                          link.target = '_blank';
-                          document.body.appendChild(link);
-                          link.click();
-                          document.body.removeChild(link);
-                        }}
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm hover:shadow-md"
-                      >
-                        <Download className="w-4 h-4" />
-                        Download
-                      </button>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
