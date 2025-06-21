@@ -4,10 +4,13 @@ import News from './pages/News';
 import NewsDetail from './pages/NewsDetail';
 import Event from './pages/Event';
 import EventDetail from './pages/EventDetail'; // Future component
+import Notice from './pages/Notice';
+import NoticesSection from './components/NoticesSection';
 
 const App = () => {
   return (
     <Routes>
+      <Route path='/notice' element={<Notice/>} />
       <Route path='/news' element={<News/>} />
       <Route path='/news/archived' element={<News/>} />
       <Route path='/news/:id' element={<NewsDetail/>} />

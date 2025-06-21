@@ -1,9 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { sampleNews, assets } from '../assets/assets';
 
 const NewsCard = ({ news, isArchived }) => {
   const navigate = useNavigate();
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
 
   return (
     <div
@@ -11,9 +19,9 @@ const NewsCard = ({ news, isArchived }) => {
         navigate(`/news/${news.id}`);
         scrollTo(0, 0);
       }}
-      className="relative border rounded-xl overflow-hidden cursor-pointer hover:-translate-y-2 transition-all duration-300 w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)] min-w-[280px] shadow-[0_8px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2),0_15px_20px_-8px_rgba(0,0,0,0.15)] font-['Poppins'] bg-gray-50 hover:bg-blue-50"
+      className="group bg-white rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-300 cursor-pointer relative"
     >
-      {/* Archived Badge - Always visible when isArchived is true */}
+      {/* Archived Badge */}
       {isArchived && (
         <div className="absolute top-3 right-3 z-10 bg-gray-600 text-white px-2 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 shadow-md">
           <svg
@@ -31,29 +39,40 @@ const NewsCard = ({ news, isArchived }) => {
         </div>
       )}
 
-      <img
-        className="w-full h-60 object-cover bg-gray-50"
-        src={news.image}
-        alt={news.title}
-      />
       <div className="p-6">
-        <div className="flex items-center gap-2">
-          <img src={assets.calender} alt="Calendar" className="w-4 h-4" />
-          <p className="text-sm text-gray-500">{news.date}</p>
-        </div>
-        <p className="text-lg font-semibold text-gray-900 mt-2">
-          {news.title}
-        </p>
-        <p className="text-sm text-gray-600 mt-3">
-          {news.description.slice(0, 80)}...
-        </p>
-        <div className="text-xs text-gray-500 mt-4 space-y-1">
-          {/* <p>
-            <strong>Location:</strong> {news.location}
-          </p> */}
-          {/* <p>
-            <strong>Time:</strong> {news.time}
-          </p> */}
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors duration-200">
+              {news.title}
+            </h3>
+            <p className="text-sm text-gray-500 mb-3">
+              Published on: {formatDate(news.date)}
+            </p>
+            {news.description && (
+              <p className="text-gray-600 text-sm line-clamp-2">
+                {news.description}
+              </p>
+            )}
+            {news.category && (
+              <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-2">
+                {news.category}
+              </span>
+            )}
+          </div>
+          {/* Simple chevron right SVG */}
+          <svg
+            className="h-5 w-5 text-gray-400 group-hover:text-blue-600 transition-colors duration-200 ml-4 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
         </div>
       </div>
     </div>
